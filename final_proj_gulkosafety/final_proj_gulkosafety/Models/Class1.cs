@@ -18,5 +18,10 @@ namespace final_proj_gulkosafety.Models
 
         public int Age { get => age; set => age = value; }
         public string Name { get => name; set => name = value; }
+
+        public int insert()
+        {
+            return 1;
+        }
     }
 }
