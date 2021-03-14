@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace final_proj_gulkosafety.Controllers
+namespace final_proj_gulkoSafety.Controllers
 {
     public class ValuesController : ApiController
     {

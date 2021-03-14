@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace final_proj_gulkosafety.Controllers
+namespace final_proj_gulkoSafety.Controllers
 {
     public class HomeController : Controller
     {
