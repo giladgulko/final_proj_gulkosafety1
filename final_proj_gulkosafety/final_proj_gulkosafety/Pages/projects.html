@@ -1,134 +1,109 @@
 ﻿<!DOCTYPE html>
-<script src="../Scripts/bootstrap.min.js"></script>
-<script src="../Scripts/jquery-3.3.1.min.js"></script>
-
 <html>
-
 <head>
     <meta charset="utf-8" />
 
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link href="projectsStyles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
-    <title>הפרוייקטים שלי</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Table Layout - srtdash</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/metisMenu.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slicknav.min.css">
+    <link href="projectsStyles.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Scripts/ajaxCallsWithKey.js"></script>
+    <title></title>
 
-    <link rel="stylesheet" href="assets/css/typography.css">
-    <link rel="stylesheet" href="assets/css/default-css.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-
-    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="../Scripts/jquery-3.3.1.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        #proj_bar {
-            text-align: center;
-            display: flex;
-            margin-top: 40px
-        }
-
-        #headline {
-            width: 20%;
-            font-family: 'Lucida Console';
-            color: blue;
-        }
-
-        #header {
-            height: 100px;
-            width: 100%;
-            text-align: center
-        }
-
-        #search {
-            display: flex;
-            height: 60%;
-            margin: auto
-        }
-
-        #table {
-            margin-top: 30px;
-            padding-left: 12%;
-            padding-right: 12%;
-            text-align: center;
-        }
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        /* The Close Button */
-        .close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-            .close:hover,
-            .close:focus {
-                color: #000;
-                text-decoration: none;
-                cursor: pointer;
-            }
-    </style>
     <script>
 
-        // Get the modal
-        var modal = document.getElementById("myModal");
+        $(document).ready(function () {
 
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+            getProjData();
+            buttonEvents();
+        });
 
-        // When the user clicks the button, open the modal
-        btn.onclick = function () {
-            modal.style.display = "block";
+
+
+        function buttonEvents() {
+
+            $(document).on("click", ".editBtn", function () {
+                resId = this.getAttribute('data-campaign')
+                console.log(resId)
+                str = "Edit new budget to reaturant <input id='newBud' type='text'/>";
+                str += "<button id='BTN_newBud' onclick='putNewBudget(" + resId + ")'> Save new budget</button>";
+                $("#editDiv").html(str)
+
+            });
+
+            $(document).on("click", ".deleteBtn", function () {
+                resId = this.getAttribute('data-campaign')
+
+                swal({
+                    title: "Are you sure ??",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                    .then(function (willDelete) {
+                        if (willDelete) delete_camp(resId);
+                        else swal("Not Deleted!");
+                    });
+            });
+        }
+        function getProjData() {
+
+            ajaxCall("GET", "../api/project", "", createDt, getError)
         }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
+        function getError() {
+            alert("err")
         }
+        function createDt(projdata) {
+            proj = projdata;
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            try {
+                tbl = $('#custTable').DataTable({
+                    data: projdata,
+                    pageLength: 5,
+                    columns: [
+
+                        { data: "Project_num" },
+                        { data: "Name" },
+                        { data: "Company" },
+                        { data: "Address" },
+                        { data: "Start_date" },
+                        { data: "End_date" },
+                        { data: "Safety_lvl" },
+                        {
+                            render: function (data, type, row, meta) {
+                                let dataproj = "data-campaign='" + row.Project_num + "'";
+
+                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataproj + "> Edit </button>";
+
+                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataproj + "> Delete </button>";
+                                return editBtn + deleteBtn;
+
+
+                            }
+                        },
+
+                    ],
+                });
+
+            }
+
+            catch (err) {
+                alert(err);
             }
         }
     </script>
@@ -146,8 +121,8 @@
                     <li><a href="#">הזמנות</a></li>
                     <li><a href="#">אישורים</a></li>
                     <li><a href="#">הדרכות</a></li>
-                    <li><a href="#">פרויקטים</a></li>
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class="active"><a href="#">פרויקטים</a></li>
+                    <li><a href="#">Home</a></li>
                 </ul>
 
                 <div class="navbar-header">
@@ -176,102 +151,23 @@
         </div>
 
     </div>
-    <div id="table">
-        <div class="single-table">
-            <div class="table-responsive">
-                <table class="table table-hover progress-table text-center">
-                    <thead class="text-uppercase">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">task</th>
-                            <th scope="col">Deadline</th>
-                            <th scope="col">Progress</th>
-                            <th scope="col">status</th>
-                            <th scope="col">action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>09 / 07 / 2018</td>
-                            <td>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-p bg-primary">pending</span></td>
-                            <td>
-                                <ul class="d-flex justify-content-center">
-                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Mark</td>
-                            <td>09 / 07 / 2018</td>
-                            <td>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 80%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-p bg-warning">pending</span></td>
-                            <td>
-                                <ul class="d-flex justify-content-center">
-                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Mark</td>
-                            <td>09 / 07 / 2018</td>
-                            <td>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-p bg-success">complate</span></td>
-                            <td>
-                                <ul class="d-flex justify-content-center">
-                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Mark</td>
-                            <td>09 / 07 / 2018</td>
-                            <td>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 85%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td><span class="status-p bg-warning">panding</span></td>
-                            <td>
-                                <ul class="d-flex justify-content-center">
-                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div id="myModal" class="modal">
+    <form id="pForm">
+        <table id="custTable" class="display" style="width:100%" dir="rtl">
+            <thead>
+                <tr>
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
-        </div>
+                    <th>מספר פרוייקט</th>
+                    <th>שם</th>
+                    <th>חברה</th>
+                    <th>כתובת</th>
+                    <th>תאריך התחלה</th>
+                    <th>תאריך סיום</th>
+                    <th>רמת בטיחות</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-    </div>
+        </table>
+    </form>
 </body>
 </html>

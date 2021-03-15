@@ -142,8 +142,61 @@ namespace final_proj_gulkosafety.Models.DAL
         //returns all projects
         public List<project> ReadProjects()
         {
-            List<project> plist = new List<project>();
-            return plist;
+            SqlConnection con = null;
+            List<project> projectList = new List<project>();
+
+            try
+            {
+                con = connect("DBConnectionString");
+                String selectSTR = "";
+                
+                    selectSTR = "select * from project";
+                
+              
+
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    project p = new project();
+
+                    p.Project_num= Convert.ToInt32(dr["project_num"]);
+                    p.Name= (string)dr["name"];
+                    p.Company= (string)dr["company"];
+                    p.Address= (string)dr["address"];
+                    p.Start_date = Convert.ToDateTime(dr["start_date"]);
+                    p.End_date = Convert.ToDateTime(dr["end_date"]);
+                    p.Status = Convert.ToInt32(dr["status"]);
+                    p.Description = (string)dr["description"];
+                    p.Safety_lvl = Convert.ToDouble(dr["safety_lvl"]);
+                    p.Project_type_num= Convert.ToInt32(dr["project_type_num"]);
+                    p.Manager_email = (string)dr["manager_email"];
+                    p.Foreman_email= (string)dr["foreman_email"];
+
+                    projectList.Add(p);
+
+
+                }
+
+                return projectList;
+            }
+            catch (Exception)
+            {
+                // write to log
+                throw new Exception("Can not read resturants");
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
         }
 
         //insert a whole new project

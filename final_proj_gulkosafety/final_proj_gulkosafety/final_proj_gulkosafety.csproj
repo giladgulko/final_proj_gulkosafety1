@@ -189,7 +189,9 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\photos\logo.jpeg" />
     <Content Include="Pages\project.html" />
+    <Content Include="Pages\projectsStyles.css" />
     <Content Include="Pages\projects.html" />
+    <Content Include="Scripts\ajaxCallsWithKey.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -234,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Pages\styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

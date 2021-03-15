@@ -1,4 +1,5 @@
-﻿using System;
+﻿using final_proj_gulkosafety.Models.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,17 +25,17 @@ namespace final_proj_gulkosafety.Models
 
         }
 
-        public void InsertDefectType()
-        {
-            DBServices dbs = new DBServices();
-            dbs.InsertDefectType(this);
-        }
+     //   public void InsertDefectType()
+       // {
+      //      DBServices dbs = new DBServices();
+         //   dbs.InsertDefectType(this);
+      //  }
 
-        public List<defect_type> ReadDefectType()
-        {
-            DBServices dbs = new DBServices();
-            List<defect_type> defect_typeList = dbs.ReadDefectType();
-            return defect_typeList;
-        }
+     //   public List<defect_type> ReadDefectType()
+     //   {
+         //   DBServices dbs = new DBServices();
+         //   List<defect_type> defect_typeList = dbs.ReadDefectType();
+           // return defect_typeList;
+       // }
     }
 }

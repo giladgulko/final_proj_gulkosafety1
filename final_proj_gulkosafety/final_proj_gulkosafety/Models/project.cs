@@ -16,12 +16,12 @@ namespace final_proj_gulkosafety.Models
         DateTime end_date;
         int status;
         string description;
-        float safety_lvl;
+        double safety_lvl;
         int project_type_num;
         string manager_email;
         string foreman_email;
 
-        public project(int project_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, float safety_lvl, int project_type_num, string manager_email, string foreman_email)
+        public project(int project_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
         {
             Project_num = project_num;
             Name = name;
@@ -45,7 +45,7 @@ namespace final_proj_gulkosafety.Models
         public DateTime End_date { get => end_date; set => end_date = value; }
         public int Status { get => status; set => status = value; }
         public string Description { get => description; set => description = value; }
-        public float Safety_lvl { get => safety_lvl; set => safety_lvl = value; }
+        public double Safety_lvl { get => safety_lvl; set => safety_lvl = value; }
         public int Project_type_num { get => project_type_num; set => project_type_num = value; }
         public string Manager_email { get => manager_email; set => manager_email = value; }
         public string Foreman_email { get => foreman_email; set => foreman_email = value; }
