@@ -198,6 +198,50 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
+        //return all users in project
+        public List<user> Read_user_in_project(string Manager_email, string Foreman_email, int proj_num)
+        {
+            SqlConnection con = null;
+            List<user> userList = new List<user>();
+
+            try
+            {
+                con = connect("DBConnectionString");
+
+                String selectSTR = "  select * from [user] u inner join project p on p.manager_email=u.email or p.foreman_email=u.email where p.project_num = proj_num ";
+
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    user user_proj = new user();
+
+                    user_proj.Name = (string)dr["name"];
+                    user_proj.Phone = (string)dr["phone"];
+                    userList.Add(user_proj);
+
+                }
+
+                return userList;
+            }
+            catch (Exception)
+            {
+                // write to log
+                throw new Exception("Can not read user");
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+        }
 
         //insert a whole new project
         public void InsertProject(project p)

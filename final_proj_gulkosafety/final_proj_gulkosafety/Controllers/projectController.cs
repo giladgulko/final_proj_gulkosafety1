@@ -39,5 +39,6 @@ namespace final_proj_gulkosafety.Controllers
         public void Delete(int id)
         {
         }
+
     }
 }
