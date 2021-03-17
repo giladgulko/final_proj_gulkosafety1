@@ -41,7 +41,7 @@ namespace final_proj_gulkosafety.Controllers
         }
         public void PutProjectUser([FromBody] project p)
         {
-            p.PutProjectUser(p.Project_num, p.Manager_email,p.Foreman_email);
+            p.UpdateProjectUser(p.Project_num, p.Manager_email,p.Foreman_email);
         }
 
         // DELETE api/<controller>/5

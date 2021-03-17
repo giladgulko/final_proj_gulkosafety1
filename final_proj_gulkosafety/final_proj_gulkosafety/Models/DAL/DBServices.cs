@@ -439,6 +439,50 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
+        //read projects' report
+        public List<report> ReadReport(int proj_num)
+        {
+            SqlConnection con = null;
+            List<report> reportList = new List<report>();
+
+            try
+            {
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM report WHRER projet_num=" + proj_num;
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    report _report = new report();
+                    _report.Report_num = Convert.ToInt32(dr["report_num"]);
+                    _report.Date = Convert.ToDateTime(dr["date"]);
+                    _report.Time = Convert.ToDateTime(dr["time"]);
+                    _report.Grade = Convert.ToDouble(dr["grade"]);
+                    _report.Comment = (string)dr["comment"];
+                    _report.Project_num = Convert.ToInt32(dr["project_num"]);
+                    reportList.Add(_report);
+                }
+
+                return reportList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+        }
 
         //insert a whole new project
         public void InsertProject(project p)
