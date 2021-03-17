@@ -189,6 +189,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\photos\logo.jpeg" />
     <Content Include="Pages\project.html" />
+    <Content Include="Pages\project1.html" />
     <Content Include="Pages\projectsStyles.css" />
     <Content Include="Pages\projects.html" />
     <Content Include="Scripts\ajaxCallsWithKey.js" />
