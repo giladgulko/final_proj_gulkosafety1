@@ -191,51 +191,56 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
-        //read projects' report
-        public List<report> ReadReport(int proj_num)
+        //update project user
+        public int UpdateProjectUser(int proj_num, string manager_email, string foreman_email)
         {
-            SqlConnection con = null;
-            List<report> reportList = new List<report>();
+
+            SqlConnection con;
+            SqlCommand cmd;
 
             try
             {
-                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
-
-                String selectSTR = "SELECT * FROM report WHRER projet_num=" + proj_num;
-                SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-                // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-
-                while (dr.Read())
-                {   // Read till the end of the data into a row
-                    report _report = new report();
-                    _report.Report_num = Convert.ToInt32(dr["report_num"]);
-                    _report.Date = Convert.ToDateTime(dr["date"]);
-                    _report.Time = Convert.ToDateTime(dr["time"]);
-                    _report.Grade = Convert.ToDouble(dr["grade"]);
-                    _report.Comment = (string)dr["comment"];
-                    _report.Project_num= Convert.ToInt32(dr["project_num"]);
-                    reportList.Add(_report);
-                }
-
-                return reportList;
+                con = connect("DBConnectionString");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // write to log
-                throw (ex);
+                throw new Exception("The connection to sever is not good");
             }
+
+            String cStr = BuildupdateCommand(proj_num, manager_email, foreman_email);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The update project user failed");
+            }
+
             finally
             {
                 if (con != null)
                 {
                     con.Close();
                 }
-
             }
 
         }
+
+        private String BuildupdateCommand(int proj_num, string manager_email, string foreman_email)
+        {
+            String command;
+            command = "UPDATE project SET manager_email=" + manager_email + "foreman_email=" + foreman_email + "WHERE project_num =" + proj_num;
+
+            return command;
+        }
+
+
+
         //update project detail
         public int UpdateProjectDeatails(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
         {
