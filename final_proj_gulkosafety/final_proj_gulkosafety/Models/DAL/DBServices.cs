@@ -396,7 +396,7 @@ namespace final_proj_gulkosafety.Models.DAL
 
         }
         //return all users in project
-        public List<user> Read_user_in_project(string Manager_email, string Foreman_email, int proj_num)
+        public List<user> Read_user_in_project(string manager_email, string foreman_email)
         {
             SqlConnection con = null;
             List<user> userList = new List<user>();
@@ -405,7 +405,7 @@ namespace final_proj_gulkosafety.Models.DAL
             {
                 con = connect("DBConnectionString");
 
-                String selectSTR = "  select * from [user] u inner join project p on p.manager_email=u.email or p.foreman_email=u.email where p.project_num = proj_num ";
+                String selectSTR = "  select * from [user] u WHERE u.email='" + manager_email + "' or u.email='" + foreman_email+"'";
 
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 

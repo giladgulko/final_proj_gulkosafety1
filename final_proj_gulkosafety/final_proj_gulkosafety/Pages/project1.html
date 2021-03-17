@@ -79,12 +79,12 @@
     </style>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>t>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="../Scripts/ajaxCallsWithKey.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
 
     <script>
 
@@ -115,7 +115,6 @@
                 project = JSON.parse(localStorage["project"]);
                 renderProjectDetails();
                 getProjectContacts();
-                getReports();
                 $("#newReportBTN").on("click", function () {
                     //change to report page
                 });
@@ -195,6 +194,7 @@
         }
 
         function renderProjectDetails() {
+            alert("in render details");
             $('#projectNum').val(project.Project_num);
             $('#status').val(project.Status);
             $('#startDate').val(project.Start_date);
@@ -203,26 +203,25 @@
             $('#address').val(project.Address);
             $('#safetyLevel').val(project.Safety_lvl);
             $('#description').val(project.Description);
-
         }
 
         function getProjectContacts() {
+            alert("in get contacts");
             let manager_email = project.Manager_email;
             let foreman_email = project.Foreman_email;
-            let proj_num = project.Project_num;
-            //api / user / { manager_email } / { foreman_email } / { proj_num }
-            //let api = "../api/user/" + manager_email + "/" + foreman_email + "/" + proj_num;
-            //ajaxCall("GET", api, "", getProjectContactsSuccess, getError);
+            let api = "../api/user/" + manager_email + "/" + foreman_email;
+            ajaxCall("GET", api, "", getProjectContactsSuccess, getError);
         }
 
         function getProjectContactsSuccess(data) {
             projContacts = data;
-            for (i = 0; i < contacts.length; i++) {
-                if (contacts[i].User_type_num == 1)
-                    $('#manager').val(contacts[i].Name);
+            for (i = 0; i < projContacts.length; i++) {
+                if (projContacts[i].User_type_num == 1)
+                    $('#manager').val(projContacts[i].Name);
                 else
-                    $('#foreman').val(contacts[i].Name);
+                    $('#foreman').val(projContacts[i].Name);
             }
+            getReports();
         }
 
         function getError(err) {
