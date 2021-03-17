@@ -31,7 +31,9 @@
     </style>
 
     <script>
-
+        status = 1
+        statues1proj = []
+        status0proj=[]
         $(document).ready(function () {
 
 
@@ -77,11 +79,25 @@
             alert("err")
         }
         function createDt(projdata) {
+            for (var i = 0; i < projdata.length; i++) {
+                if (projdata[i].Status == 1) {
+                    statues1proj.push(projdata[i])
+                }
+                else
+                    status0proj.push(projdata[i])
+                status0proj
+                }
+
+            if (status == 1) {
+                dataToShow = statues1proj;
+               
+            }
+          
             proj = projdata;
 
             try {
                 tbl = $('#custTable').DataTable({
-                    data: projdata,
+                    data: dataToShow,
                     pageLength: 5,
                     columns: [
 
@@ -113,6 +129,27 @@
             catch (err) {
                 alert(err);
             }
+        }
+
+        function renderOldPROJ() {
+            
+            if (status == 1) {
+                $("#old_proj_btn").text("פרוייקטים פעילים");
+
+
+                status = 0;
+                $('#custTable').dataTable().fnClearTable();
+                $('#custTable').dataTable().fnAddData(status0proj);
+            }
+            else {
+                $("#old_proj_btn").text("ארכיון פרוייקטים");
+                status = 1;
+                $('#custTable').dataTable().fnClearTable();
+                $('#custTable').dataTable().fnAddData(statues1proj);
+            }
+         
+           
+            
         }
     </script>
 </head>
@@ -155,7 +192,7 @@
             </div>
 
             <button id="myBtn" style="margin-left:10px" type="button" class="btn btn-primary">הוסף פרוייקט חדש</button>
-            <button type="button" class="btn btn-primary">ארכיון פרוייקטים</button>
+            <button id="old_proj_btn" type="button" class="btn btn-primary" onclick="renderOldPROJ()">ארכיון פרוייקטים</button>
         </div>
 
     </div>
