@@ -10,20 +10,12 @@ namespace final_proj_gulkosafety.Controllers
 {
     public class reportController : ApiController
     {
-        // GET api/<controller>
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<controller>/5
-       // public List<report> Get()
-        //{
-            
-           // report _report = new report();
-           // return _report.ReadReport();
-        //}
-
+        public List<report> GetProjectReports(int proj_num)
+        { 
+            report r = new report();
+            List<report> reprotList = r.ReadReport(proj_num);
+            return reprotList;
+        }
         // POST api/<controller>
         public void Post([FromBody] report _report)
         {
