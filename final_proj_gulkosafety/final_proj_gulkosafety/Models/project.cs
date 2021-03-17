@@ -74,7 +74,7 @@ namespace final_proj_gulkosafety.Models
         public void UpdateProjectStatus(int proj_num, int status)
         {
             DBServices dbs = new DBServices();
-            dbs.UpdateProjectDeatails(proj_num,status);
+            dbs.UpdateProjectStatus(proj_num,status);
         }
 
     }
