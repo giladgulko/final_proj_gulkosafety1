@@ -240,7 +240,7 @@ namespace final_proj_gulkosafety.Models.DAL
         }
 
 
-        
+
         //update project detail
         public int UpdateProjectDeatails(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
         {
