@@ -17,9 +17,9 @@ namespace final_proj_gulkosafety.Controllers
             return reprotList;
         }
         // POST api/<controller>
-        public void Post([FromBody] report _report)
+        public void Post([FromBody] report r)
         {
-           // _report.InsertReport();
+            r.InsertReport();
         }
 
         // PUT api/<controller>/5
