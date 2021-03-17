@@ -40,12 +40,12 @@ namespace final_proj_gulkosafety.Controllers
         {
         }
 
-        [Route("api/user/{manager_email}/{Foreman_email}/{proj_num}")]
         [HttpGet]
-        public List<user> Get(string Manager_email, string Foreman_email, int proj_num)
+        [Route("api/user/{manager_email}/{foreman_email}")]
+        public List<user> Get(string manager_email, string foreman_email)
         {
             user p = new user();
-            return p.Read_user_in_project(Manager_email, Foreman_email, proj_num);
+            return p.Read_user_in_project(manager_email, foreman_email);
         }
 
     }

@@ -71,5 +71,17 @@ namespace final_proj_gulkosafety.Models
 
         }
 
+        public void UpdateProjectStatus(int proj_num, int status)
+        {
+            DBServices dbs = new DBServices();
+            dbs.UpdateProjectStatus(proj_num,status);
+        }
+        
+        public void UpdateProjectUser(int proj_num, string manager_email, string foreman_email)
+        {
+            DBServices dbs = new DBServices();
+            dbs.UpdateProjectUser(proj_num, manager_email, foreman_email);
+        }
+
     }
 }

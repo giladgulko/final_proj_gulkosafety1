@@ -42,10 +42,10 @@ namespace final_proj_gulkosafety.Models
             DBServices dbs = new DBServices();
             dbs.InsertUser(this);
         }
-        public List<user> Read_user_in_project(string Manager_email, string Foreman_email, int proj_num)
+        public List<user> Read_user_in_project(string manager_email, string foreman_email)
         {
             DBServices dbs = new DBServices();
-            List<user> userListInProj = dbs.Read_user_in_project(Manager_email, Foreman_email, proj_num);
+            List<user> userListInProj = dbs.Read_user_in_project(manager_email, foreman_email);
 
             return userListInProj;
         }
