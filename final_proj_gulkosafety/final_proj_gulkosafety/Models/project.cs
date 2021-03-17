@@ -63,6 +63,11 @@ namespace final_proj_gulkosafety.Models
             DBServices dbs = new DBServices();
             dbs.InsertProject(this);
         }
+        public int put()
+        {
+
+
+        }
 
     }
 }

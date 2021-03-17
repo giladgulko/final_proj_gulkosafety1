@@ -139,6 +139,54 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
+        //update project detail
+        public int UpdateProjectDeatails(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildupdateCommand(proj_num, name, company, address, start_date, end_date, status, description, safety_lvl, project_type_num, manager_email, foreman_email);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The update of project failed");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+
+        private String BuildupdateCommand(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
+        {
+            String command;
+            command = "UPDATE project SET name=" + name + "company=" + company + "address=" + address + "start_date=" + start_date + "end_date=" + end_date + "status=" + status + "description=" + description + "safety_lvl=" + safety_lvl + "project_type_num=" + project_type_num + "manager_email=" + manager_email + "foreman_email=" + foreman_email + "WHERE project_num =" + proj_num;
+
+            return command;
+        }
+
         //returns all projects
         public List<project> ReadProjects()
         {
