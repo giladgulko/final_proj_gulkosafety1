@@ -37,7 +37,7 @@ namespace final_proj_gulkosafety.Models
             return dbs.ReadUsers();
         }
 
-        public void Insert()
+        public void InsertUser()
         {
             DBServices dbs = new DBServices();
             dbs.InsertUser(this);
@@ -49,5 +49,6 @@ namespace final_proj_gulkosafety.Models
 
             return userListInProj;
         }
+
     }
 }
