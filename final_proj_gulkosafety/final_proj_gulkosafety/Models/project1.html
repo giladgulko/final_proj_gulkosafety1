@@ -4,18 +4,17 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
-    <script src="../Scripts/ajaxCallsWithKey.js"></script>
+
     <style type="text/css">
 
 
@@ -78,11 +77,15 @@
             float: right;
         }
     </style>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>t>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="../Scripts/ajaxCalls.js"></script>
     <script>
 
 
@@ -90,41 +93,29 @@
             reports = [];
             projContacts = [];
             contactList = [];
-            //project = {
-            //    Name: "בניין 14 אולגה",
-            //    Company: "אלקטרה בניה בעמ",
-            //    Address: "החוף 14, אולגה, חדרה",
-            //    Start_date: "2020-03-10",
-            //    End_date: "2021-03-10",
-            //    Status: 1,
-            //    Description: "בניין 10 קומות, מעל 50 עובדים באתר, צמוד למלון",
-            //    Safety_lvl: 100,
-            //    Project_type_num: 1,
-            //    Manager_email: "tomerabu@rail.co.il",
-            //    Foreman_email: "yaronHarel77@gmail.com"
-            //}
+            project = {
+                Project_num: 21,
+                Name: "בניין 14 אולגה",
+                Company: "אלקטרה בניה בעמ",
+                Address: "החוף 14, אולגה, חדרה",
+                Start_date: "2020-03-10",
+                End_date: "2021-03-10",
+                Status: 1,
+                Description: "בניין 10 קומות, מעל 50 עובדים באתר, צמוד למלון",
+                Safety_lvl: 100,
+                Project_type_num: 1,
+                Manager_email: "tomerabu@rail.co.il",
+                Foreman_email: "yaronHarel77@gmail.com"
+            }
 
-            user1 = {
-                Email: "tomerabu@rail.co.il",
-                Name: "תומר אבו",
-                Phone: "052-8794055",
-                User_type_num: 1
-            }
-            user2 = {
-                Email: "yaronHarel77@gmail.com",
-                Name: "ירון הראל",
-                Phone: "052-2394055",
-                User_type_num: 2
-            }
-            contactList.push(user1);
-            contactList.push(user2);
-            //localStorage["project"] = JSON.stringify(project);
-            localStorage["project"] = "";
+            localStorage["project"] = JSON.stringify(project);
+            //localStorage["project"] = "";
+
             if (localStorage["project"] != "") {
                 project = JSON.parse(localStorage["project"]);
-                renderProject();
-                getReports();
+                renderProjectDetails();
                 getProjectContacts();
+                getReports();
                 $("#newReportBTN").on("click", function () {
                     //change to report page
                 });
@@ -186,7 +177,7 @@
 
         // Delete a report from the server
         function DeleteReport(report_num) {
-            ajaxCall("DELETE", "../api/report/" + report_num, "", deleteReportSuccess, error);
+            //ajaxCall("DELETE", "../api/report/" + report_num, "", deleteReportSuccess, error);
         }
 
 
@@ -203,8 +194,8 @@
             row.className = 'selected'; // mark as selected
         }
 
-        function renderProject() {
-            $('#projectNum').val(project.Name);
+        function renderProjectDetails() {
+            $('#projectNum').val(project.Project_num);
             $('#status').val(project.Status);
             $('#startDate').val(project.Start_date);
             $('#endDate').val(project.End_date);
@@ -216,26 +207,16 @@
         }
 
         function getProjectContacts() {
-            //let manager_mail = project.Manager_email;
-            //let foreman_mail = project.Foreman_email;
-            //let mailArray = [];
-            //mailArray.push(manager_mail);
-            //mailArray.push(foreman_mail);
-            //let api = "../api/user/" + mailArray;
-            //ajaxCall("GET", api, "", getContactsSuccess, getError);
-
-            renderProjContacts();
+            let manager_email = project.Manager_email;
+            let foreman_email = project.Foreman_email;
+            let proj_num = project.Project_num;
+            //api / user / { manager_email } / { foreman_email } / { proj_num }
+            //let api = "../api/user/" + manager_email + "/" + foreman_email + "/" + proj_num;
+            //ajaxCall("GET", api, "", getProjectContactsSuccess, getError);
         }
 
         function getProjectContactsSuccess(data) {
             projContacts = data;
-        }
-
-        function getError(err) {
-            alert("error");
-        }
-
-        function renderProjContacts() {
             for (i = 0; i < contacts.length; i++) {
                 if (contacts[i].User_type_num == 1)
                     $('#manager').val(contacts[i].Name);
@@ -243,6 +224,19 @@
                     $('#foreman').val(contacts[i].Name);
             }
         }
+
+        function getError(err) {
+            alert("error");
+        }
+
+        //function renderProjContacts() {
+        //    for (i = 0; i < contacts.length; i++) {
+        //        if (contacts[i].User_type_num == 1)
+        //            $('#manager').val(contacts[i].Name);
+        //        else
+        //            $('#foreman').val(contacts[i].Name);
+        //    }
+        //}
 
         function getReports() {
             //let project_num = project.Project_num;
@@ -323,6 +317,12 @@
 </head>
 <body>
     <div id="main">
+        <!--<div id="projName">
+            <div class="row">
+                <label for="projectName">שם פרויקט</label>
+                <input type="text" class="form-control" id="projectName">
+            </div>
+        </div>-->
         <div class="row">
             <div class="col-md-8 mb-3">
                 <div class="card">
