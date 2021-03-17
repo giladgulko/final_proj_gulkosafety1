@@ -12,7 +12,7 @@ namespace final_proj_gulkosafety.Models
         DateTime date;
         DateTime time;
         string comment;
-        float grade;
+        double grade;
         string user_mail;
         int project_num;
         List<defect> defectsList;
@@ -23,13 +23,13 @@ namespace final_proj_gulkosafety.Models
         public DateTime Date { get => date; set => date = value; }
         public DateTime Time { get => time; set => time = value; }
         public string Comment { get => comment; set => comment = value; }
-        public float Grade { get => grade; set => grade = value; }
+        public double Grade { get => grade; set => grade = value; }
         public string User_mail { get => user_mail; set => user_mail = value; }
         public int Project_num { get => project_num; set => project_num = value; }
         public List<defect> DefectsList { get => defectsList; set => defectsList = value; }
 
 
-        public report(int report_num, DateTime date, DateTime time, string comment, float grade, string user_mail, int project_num, List<defect> defectsList )
+        public report(int report_num, DateTime date, DateTime time, string comment, double grade, string user_mail, int project_num, List<defect> defectsList )
         {
             Report_num = report_num;
             Date = date;
@@ -46,19 +46,18 @@ namespace final_proj_gulkosafety.Models
 
         }
 
-      
-      //  public void InsertReport()
-       // {
-       //     DBServices dbs = new DBServices();
-        //    dbs.InsertReport(this);
-       // }
+        public void InsertReport()
+        {
+            DBServices dbs = new DBServices();
+            dbs.InsertReport(this);
+        }
 
-      //  public List<report> ReadReport()
-       // {
-      //      DBServices dbs = new DBServices();
-         //   List<report> reportList = dbs.ReadReport();
-          //  return reportList;
-        //}
-       
+        public List<report> ReadReport(int proj_num)
+        {
+            DBServices dbs = new DBServices();
+            List<report> reportList = dbs.ReadReport(proj_num);
+            return reportList;
+        }
+
     }
 }

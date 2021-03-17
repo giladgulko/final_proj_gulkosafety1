@@ -191,6 +191,56 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
+        //update project user
+        public int UpdateProjectUser(int proj_num, string manager_email, string foreman_email)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildupdateCommand(proj_num, manager_email, foreman_email);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The update project user failed");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+
+        private String BuildupdateCommand(int proj_num, string manager_email, string foreman_email)
+        {
+            String command;
+            command = "UPDATE project SET manager_email=" + manager_email + "foreman_email=" + foreman_email + "WHERE project_num =" + proj_num;
+
+            return command;
+        }
+
+
+
         //update project detail
         public int UpdateProjectDeatails(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
         {
