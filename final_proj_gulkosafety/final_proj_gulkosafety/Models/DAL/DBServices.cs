@@ -25,7 +25,59 @@ namespace final_proj_gulkosafety.Models.DAL
             con.Open();
             return con;
         }
+        //insert a new user
+        public int InsertUser(user _user)
+        {
 
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            String cStr = BuildInsertCommand(_user);      // helper method to build the insert string
+
+            cmd = CreateCommand(cStr, con);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildInsertCommand(user _user)
+        {
+            String command;
+
+            StringBuilder sb = new StringBuilder();
+            // use a string builder to create the dynamic string
+            sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}')", _user.Email, _user.Name, _user.Phone,_user.Password,_user.User_type_num);
+            String prefix = "INSERT INTO user " + "( email,name,phone,password,user_type_num)";
+            command = prefix + sb.ToString();
+
+            return command;
+
+        }
         public int InsertDefect(defect def)
         {
 
@@ -313,11 +365,8 @@ namespace final_proj_gulkosafety.Models.DAL
             List<user> ulist = new List<user>();
             return ulist;
         }
-        //insert a new user
-        public void InsertUser(user u)
-        {
 
-        }
+
         //returns all user types
         public List<user_type> ReadUserTypes()
         {

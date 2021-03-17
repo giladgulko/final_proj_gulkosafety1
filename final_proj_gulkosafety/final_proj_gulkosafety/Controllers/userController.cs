@@ -27,7 +27,7 @@ namespace final_proj_gulkosafety.Controllers
         // POST one project api/<controller>
         public void Post([FromBody] user u)
         {
-            u.Insert();
+            u.InsertUser();
         }
 
         // PUT api/<controller>/5
