@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -84,7 +86,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="../Scripts/ajaxCalls.js"></script>
+
+    <script src="../Scripts/ajaxCallsWithKey.js"></script>
 
     <script>
 
@@ -209,7 +212,8 @@
             alert("in get contacts");
             let manager_email = project.Manager_email;
             let foreman_email = project.Foreman_email;
-            let api = "../api/user/" + manager_email + "/" + foreman_email;
+            
+           let api = "../api/user?manager_email=" +manager_email+ "&foreman_email=" +foreman_email;
             ajaxCall("GET", api, "", getProjectContactsSuccess, getError);
         }
 
@@ -221,7 +225,7 @@
                 else
                     $('#foreman').val(projContacts[i].Name);
             }
-            getReports();
+            //getReports();
         }
 
         function getError(err) {

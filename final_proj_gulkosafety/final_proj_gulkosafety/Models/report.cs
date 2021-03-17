@@ -46,11 +46,11 @@ namespace final_proj_gulkosafety.Models
 
         }
 
-        public void InsertReport()
-        {
-            DBServices dbs = new DBServices();
-            dbs.InsertReport(this);
-        }
+      //  public void InsertReport()
+       // {
+         //   DBServices dbs = new DBServices();
+        //    dbs.InsertReport(this);
+       // }
 
         public List<report> ReadReport(int proj_num)
         {
