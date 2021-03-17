@@ -218,7 +218,7 @@ namespace final_proj_gulkosafety.Models.DAL
             }
             catch (Exception)
             {
-                throw new Exception("The update of project failed");
+                throw new Exception("The update of project details failed");
             }
 
             finally
@@ -235,6 +235,53 @@ namespace final_proj_gulkosafety.Models.DAL
         {
             String command;
             command = "UPDATE project SET name=" + name + "company=" + company + "address=" + address + "start_date=" + start_date + "end_date=" + end_date + "status=" + status + "description=" + description + "safety_lvl=" + safety_lvl + "project_type_num=" + project_type_num + "manager_email=" + manager_email + "foreman_email=" + foreman_email + "WHERE project_num =" + proj_num;
+
+            return command;
+        }
+        //update project status
+        public int UpdateProjectStatus(int proj_num, int status)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildupdateCommand(proj_num, status);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The update of project status failed");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+
+        private String BuildupdateCommand(int proj_num, int status)
+        {
+            String command;
+            command = "UPDATE project SET status=" + status + "WHERE project_num =" + proj_num;
 
             return command;
         }
