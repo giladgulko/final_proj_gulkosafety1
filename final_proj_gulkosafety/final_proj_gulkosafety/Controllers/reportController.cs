@@ -16,11 +16,11 @@ namespace final_proj_gulkosafety.Controllers
             List<report> reprotList = r.ReadReport(proj_num);
             return reprotList;
         }
-        // POST api/<controller>
-      //  public void Post([FromBody] report r)
-       // {
-        //    r.InsertReport();
-      //  }
+
+        public void Post([FromBody] report r)
+        {
+            r.InsertReport();
+        }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody] string value)

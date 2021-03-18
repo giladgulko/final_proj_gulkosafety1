@@ -29,7 +29,7 @@ namespace final_proj_gulkosafety.Models
         public List<defect> DefectsList { get => defectsList; set => defectsList = value; }
 
 
-        public report(int report_num, DateTime date, DateTime time, string comment, double grade, string user_mail, int project_num, List<defect> defectsList )
+        public report(int report_num, DateTime date, DateTime time, string comment, double grade, string user_mail, int project_num, List<defect> defectsList)
         {
             Report_num = report_num;
             Date = date;
@@ -41,16 +41,13 @@ namespace final_proj_gulkosafety.Models
             DefectsList = defectsList;
         }
 
-        public report()
+        public report() { }
+
+        public void InsertReport()
         {
-
+            DBServices dbs = new DBServices();
+            dbs.InsertReport(this);
         }
-
-      //  public void InsertReport()
-       // {
-         //   DBServices dbs = new DBServices();
-        //    dbs.InsertReport(this);
-       // }
 
         public List<report> ReadReport(int proj_num)
         {

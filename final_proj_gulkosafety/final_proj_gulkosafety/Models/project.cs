@@ -88,7 +88,5 @@ namespace final_proj_gulkosafety.Models
             dbs.DeleteProject(proj_num);
 
         }
-
-
     }
 }

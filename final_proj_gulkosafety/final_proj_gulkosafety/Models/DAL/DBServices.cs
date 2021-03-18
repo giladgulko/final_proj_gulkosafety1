@@ -72,12 +72,13 @@ namespace final_proj_gulkosafety.Models.DAL
             StringBuilder sb = new StringBuilder();
             // use a string builder to create the dynamic string
             sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}')", _user.Email, _user.Name, _user.Phone,_user.Password,_user.User_type_num);
-            String prefix = "INSERT INTO user " + "( email,name,phone,password,user_type_num)";
+            String prefix = "INSERT INTO user " + "(email,name,phone,password,user_type_num)";
             command = prefix + sb.ToString();
 
             return command;
 
         }
+        //insert a new defect
         public int InsertDefect(defect def)
         {
 
@@ -147,7 +148,7 @@ namespace final_proj_gulkosafety.Models.DAL
         }
 
 
-
+        // get all defect
         public List<defect> ReadDefect()
         {
             SqlConnection con = null;
@@ -160,16 +161,16 @@ namespace final_proj_gulkosafety.Models.DAL
                 String selectSTR = "SELECT * FROM defect";
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
-                // get a reader
+              
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
 
                 while (dr.Read())
-                {   // Read till the end of the data into a row
+                {  
                     defect _defect = new defect();
-                    _defect.Defects_num = Convert.ToInt32(dr["defects_num"]);
+                    _defect.Defect_num = Convert.ToInt32(dr["defect_num"]);
                     _defect.Name = (string)dr["name"];
-                    _defect.Grade = Convert.ToInt32(dr["Grade"]);
-                    _defect.Defect_type_num = Convert.ToInt32(dr["Defect_type_num"]);
+                    _defect.Grade = Convert.ToInt32(dr["grade"]);
+                    _defect.Defect_type_num = Convert.ToInt32(dr["defect_type_num"]);
 
                     defectList.Add(_defect);
                 }
@@ -234,7 +235,7 @@ namespace final_proj_gulkosafety.Models.DAL
         private String BuildupdateCommand(int proj_num, string manager_email, string foreman_email)
         {
             String command;
-            command = "UPDATE project SET manager_email=" + manager_email + "foreman_email=" + foreman_email + "WHERE project_num =" + proj_num;
+            command = "UPDATE project SET manager_email='" + manager_email + "'foreman_email='" + foreman_email + "'WHERE project_num ='" + proj_num;
 
             return command;
         }
@@ -284,7 +285,7 @@ namespace final_proj_gulkosafety.Models.DAL
         private String BuildupdateCommand(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
         {
             String command;
-            command = "UPDATE project SET name=" + name + "company=" + company + "address=" + address + "start_date=" + start_date + "end_date=" + end_date + "status=" + status + "description=" + description + "safety_lvl=" + safety_lvl + "project_type_num=" + project_type_num + "manager_email=" + manager_email + "foreman_email=" + foreman_email + "WHERE project_num =" + proj_num;
+            command = "UPDATE project SET name='" + name + "'company='" + company + "'address='" + address + "'start_date='" + start_date + "'end_date='" + end_date + "status=" + status + "description='" + description + "safety_lvl=" + safety_lvl + "project_type_num=" + project_type_num + "manager_email='" + manager_email + "'foreman_email='" + foreman_email + "'WHERE project_num =" + proj_num;
 
             return command;
         }
@@ -327,7 +328,6 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
-
         private String BuildupdateCommand(int proj_num, int status)
         {
             String command;
@@ -357,7 +357,7 @@ namespace final_proj_gulkosafety.Models.DAL
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
 
                 while (dr.Read())
-                {   // Read till the end of the data into a row
+                {   
                     project p = new project();
 
                     p.Project_num= Convert.ToInt32(dr["project_num"]);
@@ -383,7 +383,7 @@ namespace final_proj_gulkosafety.Models.DAL
             catch (Exception)
             {
                 // write to log
-                throw new Exception("Can not read resturants");
+                throw new Exception("Can not read projects");
             }
             finally
             {
@@ -405,7 +405,7 @@ namespace final_proj_gulkosafety.Models.DAL
             {
                 con = connect("DBConnectionString");
 
-                String selectSTR = "  select * from [user] u WHERE u.email='" + manager_email + "' or u.email='" + foreman_email+"'";
+                String selectSTR = "  select * from [user]  WHERE email='" + manager_email + "' or email='" + foreman_email+"'";
 
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -413,11 +413,14 @@ namespace final_proj_gulkosafety.Models.DAL
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
 
                 while (dr.Read())
-                {   // Read till the end of the data into a row
+                {   
                     user user_proj = new user();
 
+                    user_proj.Email = (string)dr["email"];
                     user_proj.Name = (string)dr["name"];
                     user_proj.Phone = (string)dr["phone"];
+                    user_proj.Password = (string)dr["password"];
+                    user_proj.User_type_num = Convert.ToInt32(dr["user_type_num"]);
                     userList.Add(user_proj);
 
                 }
@@ -528,6 +531,61 @@ namespace final_proj_gulkosafety.Models.DAL
             command = "DELETE FROM TABLE project WHERE project_num =" + proj_num;
             return command;
         }
+
+        //insert a new report
+        public int InsertReport(report _report)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            String cStr = BuildInsertCommand(_report);      // helper method to build the insert string
+
+            cmd = CreateCommand(cStr, con);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildInsertCommand(report _report)
+        {
+            String command;
+
+            StringBuilder sb = new StringBuilder();
+            // use a string builder to create the dynamic string
+            sb.AppendFormat("Values('{0}','{1}','{2}','{3}','{4}')", _report.Date, _report.Time, _report.Grade, _report.Comment, _report.Project_num);
+            String prefix = "INSERT INTO report " + "(date,time,grade,comment,project_num)";
+            command = prefix + sb.ToString();
+
+            return command;
+
+        }
+
         //insert a whole new project
         public void InsertProject(project p)
         {

@@ -20,10 +20,7 @@ namespace final_proj_gulkosafety.Models
             Defect_type_num = defect_type_num;
             Type_name = type_name;
         }
-        public defect_type()
-        {
-
-        }
+        public defect_type() { }
 
      //   public void InsertDefectType()
        // {

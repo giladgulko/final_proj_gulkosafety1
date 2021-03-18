@@ -8,30 +8,27 @@ namespace final_proj_gulkosafety.Models
 {
     public class defect
     {
-        int defects_num;
+        int defect_num;
         string name;
         float grade;
         int defect_type_num;
 
 
-        public int Defects_num { get => defects_num; set => defects_num = value; }
+        public int Defect_num { get => defect_num; set => defect_num = value; }
         public string Name { get => name; set => name = value; }
         public float Grade { get => grade; set => grade = value; }
         public int Defect_type_num { get => defect_type_num; set => defect_type_num = value; }
 
-        public defect(int defects_num, string name, float grade, int defect_type_num)
+        public defect(int defect_num, string name, float grade, int defect_type_num)
         {
-            Defects_num = defects_num;
+            Defect_num = defect_num;
             Name = name;
             Grade = grade;
             Defect_type_num = defect_type_num;
         }
 
-        public defect()
-        {
-
-        }
-
+        public defect() { }
+ 
         public void InsertDefect()
         {
             DBServices dbs = new DBServices();
