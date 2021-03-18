@@ -17,10 +17,10 @@ namespace final_proj_gulkosafety.Controllers
             return reprotList;
         }
         // POST api/<controller>
-        //public void Post([FromBody] report r)
-        //{
+      //  public void Post([FromBody] report r)
+       // {
         //    r.InsertReport();
-        //}
+      //  }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody] string value)

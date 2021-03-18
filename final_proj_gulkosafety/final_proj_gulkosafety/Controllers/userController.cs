@@ -40,8 +40,7 @@ namespace final_proj_gulkosafety.Controllers
         {
         }
 
-        [HttpGet]
-        [Route("api/user/{manager_email}/{foreman_email}")]
+     
         public List<user> Get(string manager_email, string foreman_email)
         {
             user p = new user();
