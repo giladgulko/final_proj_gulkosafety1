@@ -82,6 +82,13 @@ namespace final_proj_gulkosafety.Models
             DBServices dbs = new DBServices();
             dbs.UpdateProjectUser(proj_num, manager_email, foreman_email);
         }
+        public void DeleteProject(int proj_num)
+        {
+            DBServices dbs = new DBServices();
+            dbs.DeleteProject(proj_num);
+
+        }
+
 
     }
 }

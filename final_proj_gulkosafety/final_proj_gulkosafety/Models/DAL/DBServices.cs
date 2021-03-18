@@ -483,7 +483,51 @@ namespace final_proj_gulkosafety.Models.DAL
 
             }
         }
+        //delete project 
+        public int DeleteProject(int proj_num)
+        {
 
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildDeleteCommand(proj_num);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The project was not deleted");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildDeleteCommand(int proj_num)
+        {
+            String command;
+            command = "DELETE FROM TABLE project WHERE project_num =" + proj_num;
+            return command;
+        }
         //insert a whole new project
         public void InsertProject(project p)
         {
