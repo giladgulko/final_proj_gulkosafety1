@@ -28,9 +28,9 @@ namespace final_proj_gulkosafety.Controllers
             r.DeleteReport(r.Report_num);
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
+        public void UpdateReport([FromBody] report r)
         {
+            r.UpdateReport(r.Report_num,r.Date,r.Time,r.Comment,r.Grade,r.Project_num,r.User_mail);
         }
     }
 }

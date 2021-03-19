@@ -862,11 +862,57 @@ namespace final_proj_gulkosafety.Models.DAL
         private String BuildupdateCommand(int defect_num, DateTime fix_date, DateTime fix_time, string pic_link, int fix_status, string desc)
         {
             String command;
-            command = "UPDATE defect_in_report SET fix_date='" + fix_date + "'fix_time='" + fix_time + "'picture_link='" + pic_link + "'fix_status='" + fix_status + "'description='" + desc + "'WHERE defect_num =" + defect_num;
+            command = "UPDATE defect_in_report SET fix_date='" + fix_date + "'fix_time='" + fix_time + "'picture_link='" + pic_link + "'fix_status=" + fix_status + "description='" + desc + "'WHERE defect_num =" + defect_num;
 
             return command;
         }
 
+        //update report
+        public int UpdateReport(int report_num, DateTime date, DateTime time, string comment, double grade, int project_num, string user_mail)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildupdateCommand(report_num, date, time, comment, grade, project_num, user_mail);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The update of report failed");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildupdateCommand(int report_num, DateTime date, DateTime time, string comment, double grade, int project_num, string user_mail)
+        {
+            String command;
+            command = "UPDATE report SET date='" + date + "'time='" + time + "'comment='" + comment + "grade=" + grade + "project_num=" + project_num + "'user_mail='" + user_mail "'WHERE report_num =" + report_num;
+
+            return command;
+        }
 
 
 

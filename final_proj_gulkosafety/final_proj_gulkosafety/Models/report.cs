@@ -58,6 +58,13 @@ namespace final_proj_gulkosafety.Models
             dbs.DeleteProject(report_num);
 
         }
+        public void UpdateReport(int report_num, DateTime date, DateTime time, string comment, double grade, int project_num, string user_mail)
+        {
+            DBServices dbs = new DBServices();
+            dbs.UpdateReport(report_num, date, time, comment, grade, project_num, user_mail);
+
+        }
+
 
     }
 }
