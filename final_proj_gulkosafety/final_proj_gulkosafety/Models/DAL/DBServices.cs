@@ -450,13 +450,13 @@ namespace final_proj_gulkosafety.Models.DAL
 
             try
             {
-                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+                con = connect("DBConnectionString"); 
 
                 String selectSTR = "SELECT * FROM report WHERE project_num=" + proj_num;
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
                 // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); 
 
                 while (dr.Read())
                 {   // Read till the end of the data into a row
@@ -596,20 +596,19 @@ namespace final_proj_gulkosafety.Models.DAL
 
             try
             {
-                con = connect("DBConnectionString"); // create the connection
-            }
+                con = connect("DBConnectionString"); 
             catch (Exception ex)
             {
                 throw (ex);
             }
 
-            String cStr = BuildInsertCommand(_project);      // helper method to build the insert string
+            String cStr = BuildInsertCommand(_project);  
 
-            cmd = CreateCommand(cStr, con);             // create the command
+            cmd = CreateCommand(cStr, con);           
 
             try
             {
-                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                int numEffected = cmd.ExecuteNonQuery(); 
                 return numEffected;
             }
             catch (Exception ex)
@@ -647,14 +646,12 @@ namespace final_proj_gulkosafety.Models.DAL
 
             try
             {
-                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+                con = connect("DBConnectionString"); 
 
                 String selectSTR = "SELECT * FROM defect_in_report WHERE repoet_num=" + report_num;
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
-                // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); 
                 while (dr.Read())
                 {
                     defect_in_report _defectInReport = new defect_in_report();
@@ -795,7 +792,7 @@ namespace final_proj_gulkosafety.Models.DAL
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
                 // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); 
 
                 while (dr.Read())
                 {
@@ -822,6 +819,54 @@ namespace final_proj_gulkosafety.Models.DAL
             }
 
         }
+        
+        //update defect in report
+        public int UpdateDefectInReport(int defect_num, DateTime fix_date, DateTime fix_time, string pic_link, int fix_status, string desc)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildupdateCommand(defect_num, fix_date, fix_time, pic_link, fix_status, desc);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The update of defect in report failed");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildupdateCommand(int defect_num, DateTime fix_date, DateTime fix_time, string pic_link, int fix_status, string desc)
+        {
+            String command;
+            command = "UPDATE defect_in_report SET fix_date='" + fix_date + "'fix_time='" + fix_time + "'picture_link='" + pic_link + "'fix_status='" + fix_status + "'description='" + desc + "'WHERE defect_num =" + defect_num;
+
+            return command;
+        }
+
 
 
 
