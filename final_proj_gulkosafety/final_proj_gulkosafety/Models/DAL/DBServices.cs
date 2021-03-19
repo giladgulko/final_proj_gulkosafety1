@@ -71,7 +71,7 @@ namespace final_proj_gulkosafety.Models.DAL
 
             StringBuilder sb = new StringBuilder();
             // use a string builder to create the dynamic string
-            sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}')", _user.Email, _user.Name, _user.Phone,_user.Password,_user.User_type_num);
+            sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}')", _user.Email, _user.Name, _user.Phone, _user.Password, _user.User_type_num);
             String prefix = "INSERT INTO user " + "(email,name,phone,password,user_type_num)";
             command = prefix + sb.ToString();
 
@@ -161,11 +161,11 @@ namespace final_proj_gulkosafety.Models.DAL
                 String selectSTR = "SELECT * FROM defect";
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
-              
+
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
 
                 while (dr.Read())
-                {  
+                {
                     defect _defect = new defect();
                     _defect.Defect_num = Convert.ToInt32(dr["defect_num"]);
                     _defect.Name = (string)dr["name"];
@@ -346,10 +346,10 @@ namespace final_proj_gulkosafety.Models.DAL
             {
                 con = connect("DBConnectionString");
                 String selectSTR = "";
-                
-                    selectSTR = "select * from project";
-                
-              
+
+                selectSTR = "select * from project";
+
+
 
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -357,21 +357,21 @@ namespace final_proj_gulkosafety.Models.DAL
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
 
                 while (dr.Read())
-                {   
+                {
                     project p = new project();
 
-                    p.Project_num= Convert.ToInt32(dr["project_num"]);
-                    p.Name= (string)dr["name"];
-                    p.Company= (string)dr["company"];
-                    p.Address= (string)dr["address"];
+                    p.Project_num = Convert.ToInt32(dr["project_num"]);
+                    p.Name = (string)dr["name"];
+                    p.Company = (string)dr["company"];
+                    p.Address = (string)dr["address"];
                     p.Start_date = Convert.ToDateTime(dr["start_date"]);
                     p.End_date = Convert.ToDateTime(dr["end_date"]);
                     p.Status = Convert.ToInt32(dr["status"]);
                     p.Description = (string)dr["description"];
                     p.Safety_lvl = Convert.ToDouble(dr["safety_lvl"]);
-                    p.Project_type_num= Convert.ToInt32(dr["project_type_num"]);
+                    p.Project_type_num = Convert.ToInt32(dr["project_type_num"]);
                     p.Manager_email = (string)dr["manager_email"];
-                    p.Foreman_email= (string)dr["foreman_email"];
+                    p.Foreman_email = (string)dr["foreman_email"];
 
                     projectList.Add(p);
 
@@ -405,7 +405,7 @@ namespace final_proj_gulkosafety.Models.DAL
             {
                 con = connect("DBConnectionString");
 
-                String selectSTR = "  select * from [user]  WHERE email='" + manager_email + "' or email='" + foreman_email+"'";
+                String selectSTR = "  select * from [user]  WHERE email='" + manager_email + "' or email='" + foreman_email + "'";
 
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -413,7 +413,7 @@ namespace final_proj_gulkosafety.Models.DAL
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
 
                 while (dr.Read())
-                {   
+                {
                     user user_proj = new user();
 
                     user_proj.Email = (string)dr["email"];
@@ -631,7 +631,7 @@ namespace final_proj_gulkosafety.Models.DAL
 
             StringBuilder sb = new StringBuilder();
             // use a string builder to create the dynamic string
-            sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')",_project.Name,_project.Company,_project.Address,_project.Start_date,_project.End_date,_project.Status,_project.Description,_project.Safety_lvl,_project.Project_type_num,_project.Manager_email,_project.Foreman_email);
+            sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')", _project.Name, _project.Company, _project.Address, _project.Start_date, _project.End_date, _project.Status, _project.Description, _project.Safety_lvl, _project.Project_type_num, _project.Manager_email, _project.Foreman_email);
             String prefix = "INSERT INTO project " + "(name,company,address,start_date,end_date,status,description,safety_lvl,project_type_num,manager_email,foreman_email)";
             command = prefix + sb.ToString();
 
