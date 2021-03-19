@@ -169,7 +169,7 @@ namespace final_proj_gulkosafety.Models.DAL
                     defect _defect = new defect();
                     _defect.Defect_num = Convert.ToInt32(dr["defect_num"]);
                     _defect.Name = (string)dr["name"];
-                    _defect.Grade = Convert.ToInt32(dr["grade"]);
+                    _defect.Grade = Convert.ToDouble(dr["grade"]);
                     _defect.Defect_type_num = Convert.ToInt32(dr["defect_type_num"]);
 
                     defectList.Add(_defect);
@@ -452,7 +452,7 @@ namespace final_proj_gulkosafety.Models.DAL
             {
                 con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
 
-                String selectSTR = "SELECT * FROM report WHRER projet_num=" + proj_num;
+                String selectSTR = "SELECT * FROM report WHERE project_num=" + proj_num;
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
                 // get a reader
@@ -464,9 +464,10 @@ namespace final_proj_gulkosafety.Models.DAL
                     _report.Report_num = Convert.ToInt32(dr["report_num"]);
                     _report.Date = Convert.ToDateTime(dr["date"]);
                     _report.Time = Convert.ToDateTime(dr["time"]);
-                    _report.Grade = Convert.ToDouble(dr["grade"]);
                     _report.Comment = (string)dr["comment"];
+                    _report.Grade = Convert.ToDouble(dr["grade"]);
                     _report.Project_num = Convert.ToInt32(dr["project_num"]);
+                    _report.User_mail = (string)dr["user_email"];
                     reportList.Add(_report);
                 }
 
@@ -528,7 +529,7 @@ namespace final_proj_gulkosafety.Models.DAL
         private String BuildDeleteCommand(int proj_num)
         {
             String command;
-            command = "delete from project where project_num="+proj_num;
+            command = "delete from project where project_num=" + proj_num;
             return command;
         }
 
@@ -638,6 +639,192 @@ namespace final_proj_gulkosafety.Models.DAL
             return command;
 
         }
+        //read all defects in report
+        public List<defect_in_report> ReadDefectsInReport(int report_num)
+        {
+            SqlConnection con = null;
+            List<defect_in_report> defectsInReportList = new List<defect_in_report>();
+
+            try
+            {
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM defect_in_report WHERE repoet_num=" + report_num;
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {
+                    defect_in_report _defectInReport = new defect_in_report();
+
+                    _defectInReport.Report_num = Convert.ToInt32(dr["report_num"]);
+                    _defectInReport.Defect_num = Convert.ToInt32(dr["defect_num"]);
+                    _defectInReport.Fix_date = Convert.ToDateTime(dr["fix_date"]);
+                    _defectInReport.Fix_time = Convert.ToDateTime(dr["fix_time"]);
+                    _defectInReport.Picture_link = (string)dr["picture_link"];
+                    _defectInReport.Fix_status = Convert.ToInt32(dr["fix_status"]);
+                    _defectInReport.Description = (string)dr["description"];
+                    defectsInReportList.Add(_defectInReport);
+                }
+
+                return defectsInReportList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+        }
+        // delete defect in report
+        public int DeleteDefectInReport(int report_num, int defect_num)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildDeleteCommand(report_num, defect_num);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The defect was not deleted");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildDeleteCommand(int report_num, int defect_num)
+        {
+            String command;
+            command = "DELETE FROM defect_in_report WHERE report_num=" + report_num + "and defect_num=" + defect_num;
+            return command;
+        }
+
+        //delete report
+        public int DeleteReport(int report_num)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString");
+            }
+            catch (Exception)
+            {
+                throw new Exception("The connection to sever is not good");
+            }
+
+            String cStr = BuildDeleteReportCommand(report_num);
+
+            cmd = CreateCommand(cStr, con);
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The report was not deleted");
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+        private String BuildDeleteReportCommand(int report_num)
+        {
+            String command;
+            command = "DELETE FROM report WHERE report_num=" + report_num;
+            return command;
+        }
+
+        //read all defect type
+        public List<defect_type> ReadDefectType()
+        {
+            SqlConnection con = null;
+            List<defect_type> defectTypeList = new List<defect_type>();
+
+            try
+            {
+                con = connect("DBConnectionString");
+                String selectSTR = "";
+
+                selectSTR = "select * from defect_type";
+
+
+
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {
+                    defect_type dt = new defect_type();
+
+                    dt.Defect_type_num = Convert.ToInt32(dr["defect_type_num"]);
+                    dt.Type_name = (string)dr["type_name"];
+
+                    defectTypeList.Add(dt);
+                }
+                return defectTypeList;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Can not read defect type");
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+        }
+
+
+
         //returns all project types with weights
         public List<project_type> ReadProjectTypes()
         {
