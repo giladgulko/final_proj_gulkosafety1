@@ -96,23 +96,9 @@
             reports = [];
             projContacts = [];
             contactList = [];
-            project = {
-                Project_num: 21,
-                Name: "בניין 14 אולגה",
-                Company: "אלקטרה בניה בעמ",
-                Address: "החוף 14, אולגה, חדרה",
-                Start_date: "2020-03-10",
-                End_date: "2021-03-10",
-                Status: 1,
-                Description: "בניין 10 קומות, מעל 50 עובדים באתר, צמוד למלון",
-                Safety_lvl: 100,
-                Project_type_num: 1,
-                Manager_email: "tomerabu@rail.co.il",
-                Foreman_email: "yaronHarel77@gmail.com"
-            }
+           
 
-            localStorage["project"] = JSON.stringify(project);
-            //localStorage["project"] = "";
+         
 
             if (localStorage["project"] != "") {
                 project = JSON.parse(localStorage["project"]);

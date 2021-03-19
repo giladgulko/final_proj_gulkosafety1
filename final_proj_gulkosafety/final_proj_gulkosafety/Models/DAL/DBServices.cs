@@ -528,7 +528,7 @@ namespace final_proj_gulkosafety.Models.DAL
         private String BuildDeleteCommand(int proj_num)
         {
             String command;
-            command = "DELETE FROM TABLE project WHERE project_num =" + proj_num;
+            command = "delete from project where project_num="+proj_num;
             return command;
         }
 

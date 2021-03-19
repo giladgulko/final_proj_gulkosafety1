@@ -76,7 +76,15 @@
             });
         }
         function delete_proj(proj) {
-           alert(proj)
+            projToDelete={
+                Project_num: proj
+
+            }
+            ajaxCall("DELETE", "../api/project", JSON.stringify(projToDelete), deletePROJ, getError)
+        }
+        function deletePROJ() {
+            location.reload();
+
         }
         function getProjData() {
 
@@ -104,9 +112,9 @@
              allProj = projdata;
 
             try {
-                tbl = $('#custTable').DataTable({
+                tbl = $('#projTable').DataTable({
                     data: dataToShow,
-                    pageLength: 5,
+                    pageLength: 10,
                     columns: [
 
                         { data: "Project_num" },
@@ -146,21 +154,21 @@
 
 
                 status = 0;
-                $('#custTable').dataTable().fnClearTable();
-                $('#custTable').dataTable().fnAddData(status0proj);
+                $('#projTable').dataTable().fnClearTable();
+                $('#projTable').dataTable().fnAddData(status0proj);
             }
             else {
                 $("#old_proj_btn").text("ארכיון פרוייקטים");
                 status = 1;
-                $('#custTable').dataTable().fnClearTable();
-                $('#custTable').dataTable().fnAddData(statues1proj);
+                $('#projTable').dataTable().fnClearTable();
+                $('#projTable').dataTable().fnAddData(statues1proj);
             }
          
            
             
         }
         function addNewProj() {
-            window.localStorage.clear();
+            localStorage.clear()
             window.location = "project1.html"
         }
     </script>
@@ -209,7 +217,7 @@
 
     </div>
     <form id="pForm">
-        <table id="custTable" class="display" style="width:100%" dir="rtl">
+        <table id="projTable" class="display" style="width:100%" dir="rtl">
             <thead>
                 <tr>
 
