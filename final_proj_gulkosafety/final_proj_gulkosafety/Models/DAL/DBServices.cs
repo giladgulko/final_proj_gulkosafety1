@@ -587,8 +587,55 @@ namespace final_proj_gulkosafety.Models.DAL
         }
 
         //insert a whole new project
-        public void InsertProject(project p)
+        public int InsertProject(project _project)
         {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            String cStr = BuildInsertCommand(_project);      // helper method to build the insert string
+
+            cmd = CreateCommand(cStr, con);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+        private String BuildInsertCommand(project _project)
+        {
+            String command;
+
+            StringBuilder sb = new StringBuilder();
+            // use a string builder to create the dynamic string
+            sb.AppendFormat("Values('{0}', '{1}', '{2}','{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')",_project.Name,_project.Company,_project.Address,_project.Start_date,_project.End_date,_project.Status,_project.Description,_project.Safety_lvl,_project.Project_type_num,_project.Manager_email,_project.Foreman_email);
+            String prefix = "INSERT INTO project " + "(name,company,address,start_date,end_date,status,description,safety_lvl,project_type_num,manager_email,foreman_email)";
+            command = prefix + sb.ToString();
+
+            return command;
 
         }
         //returns all project types with weights

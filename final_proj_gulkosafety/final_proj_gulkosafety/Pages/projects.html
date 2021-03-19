@@ -46,16 +46,21 @@
         function buttonEvents() {
 
             $(document).on("click", ".editBtn", function () {
-                resId = this.getAttribute('data-campaign')
-                console.log(resId)
-                str = "Edit new budget to reaturant <input id='newBud' type='text'/>";
-                str += "<button id='BTN_newBud' onclick='putNewBudget(" + resId + ")'> Save new budget</button>";
-                $("#editDiv").html(str)
-
+                projId = this.getAttribute('data-campaign')
+                projToEdite=""
+                for (var i = 0; i < allProj.length; i++) {
+                    if (allProj[i].Project_num == projId) {
+                        projToEdite = allProj[i]
+                    }
+                }
+                console.log(projToEdite)
+                localStorage["project"] = JSON.stringify(projToEdite);
+                window.location = "project1.html"
+                    
             });
 
             $(document).on("click", ".deleteBtn", function () {
-                resId = this.getAttribute('data-campaign')
+                projId = this.getAttribute('data-campaign')
 
                 swal({
                     title: "Are you sure ??",
@@ -65,10 +70,13 @@
                     dangerMode: true
                 })
                     .then(function (willDelete) {
-                        if (willDelete) delete_camp(resId);
+                        if (willDelete) delete_proj(projId);
                         else swal("Not Deleted!");
                     });
             });
+        }
+        function delete_proj(proj) {
+           alert(proj)
         }
         function getProjData() {
 
@@ -93,7 +101,7 @@
                
             }
           
-            proj = projdata;
+             allProj = projdata;
 
             try {
                 tbl = $('#custTable').DataTable({
@@ -151,6 +159,10 @@
            
             
         }
+        function addNewProj() {
+            window.localStorage.clear();
+            window.location = "project1.html"
+        }
     </script>
 </head>
 <body>
@@ -191,7 +203,7 @@
                 <button type="button" class="btn btn-primary">חפש</button>
             </div>
 
-            <button id="myBtn" style="margin-left:10px" type="button" class="btn btn-primary">הוסף פרוייקט חדש</button>
+            <button id="myBtn" style="margin-left:10px" type="button" class="btn btn-primary" onclick="addNewProj()">הוסף פרוייקט חדש</button>
             <button id="old_proj_btn" type="button" class="btn btn-primary" onclick="renderOldPROJ()">ארכיון פרוייקטים</button>
         </div>
 
