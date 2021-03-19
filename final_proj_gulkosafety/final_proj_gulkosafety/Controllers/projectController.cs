@@ -45,8 +45,9 @@ namespace final_proj_gulkosafety.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public void DeleteProject([FromBody] project p)
         {
+            p.DeleteProject(p.Project_num);
         }
 
     }
