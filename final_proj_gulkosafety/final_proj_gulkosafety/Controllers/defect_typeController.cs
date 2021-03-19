@@ -10,24 +10,18 @@ namespace final_proj_gulkosafety.Controllers
 {
     public class defect_typeController : ApiController
     {
-        // GET api/<controller>
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<controller>/5
-      //  public List<defect_type> Get()
-        //{
-       //     defect_type _defect_type = new defect_type();
-       //     return _defect_type.ReadDefectType();
-       // }
+        public List<defect_type> Get()
+        {
+            defect_type _defect_type = new defect_type();
+            List<defect_type> defectTypeList = _defect_type.ReadDefectType();
+            return defectTypeList;
+        }
 
         // POST api/<controller>
-       // public void Post([FromBody] defect_type _defect_type)
-       // {
+        // public void Post([FromBody] defect_type _defect_type)
+        // {
         //    _defect_type.InsertDefectType();
-    //    }
+        //    }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody] string value)

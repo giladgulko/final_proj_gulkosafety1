@@ -64,19 +64,19 @@ namespace final_proj_gulkosafety.Models
             dbs.InsertProject(this);
         }
 
-        public void UpdateProjectDeatails(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status,string description,double safety_lvl,int project_type_num,string manager_email, string foreman_email)
-        { 
+        public void UpdateProjectDeatails(int proj_num, string name, string company, string address, DateTime start_date, DateTime end_date, int status, string description, double safety_lvl, int project_type_num, string manager_email, string foreman_email)
+        {
             DBServices dbs = new DBServices();
-            dbs.UpdateProjectDeatails(proj_num, name, company, address, start_date, end_date, status, description, safety_lvl, project_type_num, manager_email,foreman_email);
+            dbs.UpdateProjectDeatails(proj_num, name, company, address, start_date, end_date, status, description, safety_lvl, project_type_num, manager_email, foreman_email);
 
         }
 
         public void UpdateProjectStatus(int proj_num, int status)
         {
             DBServices dbs = new DBServices();
-            dbs.UpdateProjectStatus(proj_num,status);
+            dbs.UpdateProjectStatus(proj_num, status);
         }
-        
+
         public void UpdateProjectUser(int proj_num, string manager_email, string foreman_email)
         {
             DBServices dbs = new DBServices();

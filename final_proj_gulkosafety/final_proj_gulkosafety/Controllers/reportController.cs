@@ -10,8 +10,9 @@ namespace final_proj_gulkosafety.Controllers
 {
     public class reportController : ApiController
     {
-        public List<report> GetProjectReports(int proj_num)
-        { 
+        //get all project's reports
+        public List<report> Get(int proj_num)
+        {
             report r = new report();
             List<report> reprotList = r.ReadReport(proj_num);
             return reprotList;
@@ -22,13 +23,13 @@ namespace final_proj_gulkosafety.Controllers
             r.InsertReport();
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
+        public void DeleteReport([FromBody] report r)
         {
+            r.DeleteReport(r.Report_num);
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        // PUT api/<controller>/5
+        public void Put(int id, [FromBody] string value)
         {
         }
     }

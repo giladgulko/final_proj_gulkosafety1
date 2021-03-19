@@ -10,7 +10,6 @@ namespace final_proj_gulkosafety.Controllers
 {
     public class projectController : ApiController
     {
-        // GET all projects api/<controller>
         public List<project> Get()
         {
             project p = new project();
@@ -41,7 +40,7 @@ namespace final_proj_gulkosafety.Controllers
         }
         public void PutProjectUser([FromBody] project p)
         {
-            p.UpdateProjectUser(p.Project_num, p.Manager_email,p.Foreman_email);
+            p.UpdateProjectUser(p.Project_num, p.Manager_email, p.Foreman_email);
         }
 
         // DELETE api/<controller>/5

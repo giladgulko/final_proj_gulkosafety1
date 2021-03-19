@@ -13,10 +13,8 @@ namespace final_proj_gulkosafety.Models
         DateTime time;
         string comment;
         double grade;
-        string user_mail;
         int project_num;
-        List<defect> defectsList;
-
+        string user_mail;
 
 
         public int Report_num { get => report_num; set => report_num = value; }
@@ -24,21 +22,19 @@ namespace final_proj_gulkosafety.Models
         public DateTime Time { get => time; set => time = value; }
         public string Comment { get => comment; set => comment = value; }
         public double Grade { get => grade; set => grade = value; }
-        public string User_mail { get => user_mail; set => user_mail = value; }
         public int Project_num { get => project_num; set => project_num = value; }
-        public List<defect> DefectsList { get => defectsList; set => defectsList = value; }
+        public string User_mail { get => user_mail; set => user_mail = value; }
 
 
-        public report(int report_num, DateTime date, DateTime time, string comment, double grade, string user_mail, int project_num, List<defect> defectsList)
+        public report(int report_num, DateTime date, DateTime time, string comment, double grade, int project_num, string user_mail)
         {
             Report_num = report_num;
             Date = date;
             Time = time;
             Comment = comment;
             Grade = grade;
-            User_mail = user_mail;
             Project_num = project_num;
-            DefectsList = defectsList;
+            User_mail = user_mail;
         }
 
         public report() { }
@@ -54,6 +50,13 @@ namespace final_proj_gulkosafety.Models
             DBServices dbs = new DBServices();
             List<report> reportList = dbs.ReadReport(proj_num);
             return reportList;
+        }
+
+        public void DeleteReport(int report_num)
+        {
+            DBServices dbs = new DBServices();
+            dbs.DeleteProject(report_num);
+
         }
 
     }

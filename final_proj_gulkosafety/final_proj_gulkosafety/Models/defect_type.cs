@@ -22,17 +22,17 @@ namespace final_proj_gulkosafety.Models
         }
         public defect_type() { }
 
-     //   public void InsertDefectType()
-       // {
-      //      DBServices dbs = new DBServices();
-         //   dbs.InsertDefectType(this);
-      //  }
+        public List<defect_type> ReadDefectType()
+        {
+            DBServices dbs = new DBServices();
+            return dbs.ReadDefectType();
+        }
 
-     //   public List<defect_type> ReadDefectType()
-     //   {
-         //   DBServices dbs = new DBServices();
-         //   List<defect_type> defect_typeList = dbs.ReadDefectType();
-           // return defect_typeList;
-       // }
+        //   public void InsertDefectType()
+        // {
+        //      DBServices dbs = new DBServices();
+        //   dbs.InsertDefectType(this);
+        //  }
+
     }
 }
