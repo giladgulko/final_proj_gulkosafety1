@@ -192,6 +192,7 @@
     <Content Include="Pages\project1.html" />
     <Content Include="Pages\projectsStyles.css" />
     <Content Include="Pages\projects.html" />
+    <Content Include="Pages\report.html" />
     <Content Include="Scripts\ajaxCalls.js" />
     <Content Include="Scripts\ajaxCallsWithKey.js" />
     <Content Include="Scripts\bootstrap.js" />
