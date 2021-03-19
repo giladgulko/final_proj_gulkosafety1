@@ -10,16 +10,16 @@ namespace final_proj_gulkosafety.Models
     {
         int defect_num;
         string name;
-        double grade;
+        float grade;
         int defect_type_num;
 
 
         public int Defect_num { get => defect_num; set => defect_num = value; }
         public string Name { get => name; set => name = value; }
-        public double Grade { get => grade; set => grade = value; }
+        public float Grade { get => grade; set => grade = value; }
         public int Defect_type_num { get => defect_type_num; set => defect_type_num = value; }
 
-        public defect(int defect_num, string name, double grade, int defect_type_num)
+        public defect(int defect_num, string name, float grade, int defect_type_num)
         {
             Defect_num = defect_num;
             Name = name;
