@@ -169,7 +169,7 @@ namespace final_proj_gulkosafety.Models.DAL
                     defect _defect = new defect();
                     _defect.Defect_num = Convert.ToInt32(dr["defect_num"]);
                     _defect.Name = (string)dr["name"];
-                    _defect.Grade = Convert.ToInt32(dr["grade"]);
+                    _defect.Grade = Convert.ToDouble(dr["grade"]);
                     _defect.Defect_type_num = Convert.ToInt32(dr["defect_type_num"]);
 
                     defectList.Add(_defect);
