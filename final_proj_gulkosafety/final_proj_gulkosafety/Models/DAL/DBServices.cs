@@ -596,7 +596,8 @@ namespace final_proj_gulkosafety.Models.DAL
 
             try
             {
-                con = connect("DBConnectionString"); 
+                con = connect("DBConnectionString");
+            }
             catch (Exception ex)
             {
                 throw (ex);
@@ -909,7 +910,7 @@ namespace final_proj_gulkosafety.Models.DAL
         private String BuildupdateCommand(int report_num, DateTime date, DateTime time, string comment, double grade, int project_num, string user_mail)
         {
             String command;
-            command = "UPDATE report SET date='" + date + "'time='" + time + "'comment='" + comment + "grade=" + grade + "project_num=" + project_num + "'user_mail='" + user_mail "'WHERE report_num =" + report_num;
+            command = "UPDATE report SET date='" + date + "'time='" + time + "'comment='" + comment + "grade=" + grade + "project_num=" + project_num + "'user_mail='" + user_mail + "'WHERE report_num =" + report_num ;
 
             return command;
         }

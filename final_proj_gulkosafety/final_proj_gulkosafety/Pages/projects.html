@@ -14,8 +14,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
-    <link href="projectsStyles.css" rel="stylesheet" />
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -23,31 +21,51 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCallsWithKey.js"></script>
-    <title></title>
-    <style type="text/css">
-        h1 {
-          font-family: 'Assistant', sans-serif;
+    <link href="projectsStyles.css" rel="stylesheet" />
+
+    <title>הפרויקטים שלי</title>
+    <style>
+        .glyphicon {
+            top: 20px;
+        }
+        .btn-primary {
+            color: #fff;
+            background-color: cadetblue;
+            border-color: cadetblue;
+        }
+        h2, .proj {
+
+            font-family: 'Lucida Console';
+            color:cadetblue;
+            font-weight:bold;
+        }
+        body{
+            background-color:#eeeeee;
+        }
+        .navbar-default {
+            background-color: cadetblue;
+            border-color: #e7e7e7;
+            color: white;
+        }
+        #logo{
+            float:left;
         }
     </style>
-
     <script>
         status = 1
         statues1proj = []
-        status0proj=[]
+        status0proj = []
         $(document).ready(function () {
-
 
             getProjData();
             buttonEvents();
         });
 
-
-
         function buttonEvents() {
 
             $(document).on("click", ".editBtn", function () {
-                projId = this.getAttribute('data-campaign')
-                projToEdite=""
+                projId = this.getAttribute('project_data')
+                projToEdite = ""
                 for (var i = 0; i < allProj.length; i++) {
                     if (allProj[i].Project_num == projId) {
                         projToEdite = allProj[i]
@@ -56,11 +74,11 @@
                 console.log(projToEdite)
                 localStorage["project"] = JSON.stringify(projToEdite);
                 window.location = "project1.html"
-                    
+
             });
 
             $(document).on("click", ".deleteBtn", function () {
-                projId = this.getAttribute('data-campaign')
+                projId = this.getAttribute('project_data')
 
                 swal({
                     title: "Are you sure ??",
@@ -76,9 +94,9 @@
             });
         }
         function delete_proj(proj) {
-            projToDelete={
-                Project_num: proj
+            projToDelete = {
 
+                Project_num: proj
             }
             ajaxCall("DELETE", "../api/project", JSON.stringify(projToDelete), deletePROJ, getError)
         }
@@ -102,14 +120,14 @@
                 else
                     status0proj.push(projdata[i])
                 status0proj
-                }
+            }
 
             if (status == 1) {
                 dataToShow = statues1proj;
-               
+
             }
-          
-             allProj = projdata;
+
+            allProj = projdata;
 
             try {
                 tbl = $('#projTable').DataTable({
@@ -126,7 +144,7 @@
                         { data: "Safety_lvl" },
                         {
                             render: function (data, type, row, meta) {
-                                let dataproj = "data-campaign='" + row.Project_num + "'";
+                                let dataproj = "project_data='" + row.Project_num + "'";
 
                                 editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataproj + "> Edit </button>";
 
@@ -148,7 +166,7 @@
         }
 
         function renderOldPROJ() {
-            
+
             if (status == 1) {
                 $("#old_proj_btn").text("פרוייקטים פעילים");
 
@@ -163,9 +181,9 @@
                 $('#projTable').dataTable().fnClearTable();
                 $('#projTable').dataTable().fnAddData(statues1proj);
             }
-         
-           
-            
+
+
+
         }
         function addNewProj() {
             localStorage.clear()
@@ -174,31 +192,32 @@
     </script>
 </head>
 <body>
-    <div id="header" dir="rtl">
-        <nav dir="rtl" class="navbar navbar-default" style="float:right">
-            <div style="float:right" dir="rtl" class="container-fluid">
-
-                <ul class="nav navbar-nav">
-                    <li><a href="#">הגדרות</a></li>
-                    <li><a href="#">התראות</a></li>
-                    <li><a href="#">סטטיסטיקות</a></li>
-                    <li><a href="#">משתמשים</a></li>
-                    <li><a href="#">הזמנות</a></li>
-                    <li><a href="#">אישורים</a></li>
-                    <li><a href="#">הדרכות</a></li>
-                    <li class="active"><a href="#">פרויקטים</a></li>
-                    <li><a href="#">Home</a></li>
-                </ul>
-
-                <div class="navbar-header">
-                    <img class="logo" src="photos/logo.jpeg" height="50" />
-                </div>
-            </div>
-        </nav>
+    <div id="logo">
+        <img class="logo" src="photos/logo.jpeg" height="50" />
     </div>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container" style="float:right">
+            <ul class="nav navbar-nav">
+                <li><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><a href="#"></a></li>
+                <li></li>
+                <li><span class="glyphicon glyphicon-bell" aria-hidden="true"></span><a href="#"></a></li>
+                <li><a href="#">סטטיסטיקות</a></li>
+                <li><a href="#">משתמשים</a></li>
+                <li><a href="#">הזמנות</a></li>
+                <li><a href="#">אישורים</a></li>
+                <li><a href="#">הדרכות</a></li>
+                <li class="active"><a href="#">פרויקטים</a></li>
+                <li><a href="#">התחברות</a></li>
+                <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span><a href="#"></a></li>
+
+            </ul>
+
+        </div>
+    </nav>
+
     <div id="proj_bar" dir="rtl">
         <div id="headline">
-            <h1 style="margin:auto;font-size:60px"><b>פרוייקטים</b></h1>
+            <h1 class="proj">פרוייקטים</h1>
         </div>
         <div id="search">
             <div style="display:flex;margin-left:40px">
@@ -211,7 +230,7 @@
                 <button type="button" class="btn btn-primary">חפש</button>
             </div>
 
-            <button id="myBtn" style="margin-left:10px" type="button" class="btn btn-primary" onclick="addNewProj()">הוסף פרוייקט חדש</button>
+            <button id="myBtn" style="margin-left:10px" class="btn btn-primary" onclick="addNewProj()">הוסף פרוייקט חדש</button>
             <button id="old_proj_btn" type="button" class="btn btn-primary" onclick="renderOldPROJ()">ארכיון פרוייקטים</button>
         </div>
 

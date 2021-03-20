@@ -1,4 +1,6 @@
-﻿
+﻿body{
+    background-color:beige;
+}
 
 #proj_bar {
     text-align: center;
@@ -6,16 +8,8 @@
     margin-top: 40px
 }
 
-#headline {
-    width: 20%;
-    font-family: 'Suez One', serif;
-    color: blue;
-}
-
-#header {
-    height: 100px;
-    width: 100%;
-    text-align: center
+h1,.proj{
+    font-family:'Lucida Console'
 }
 
 #search {
@@ -35,4 +29,8 @@
     margin-right: 10%;
     margin-top: 5%;
 }
-
+.btn-primary {
+    color: #fff;
+    background-color: cadetblue;
+    border-color: cadetblue;
+}
